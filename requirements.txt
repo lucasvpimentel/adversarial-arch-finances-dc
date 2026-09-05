@@ -5,3 +5,4 @@ duckduckgo-search
 ddgs
 yfinance
 python-dotenv
+streamlit
