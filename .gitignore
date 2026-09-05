@@ -1,0 +1,18 @@
+# Ambiente e Chaves de API
+.env
+.env.txt
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambientes Virtuais
+venv/
+.venv/
+env/
+
+# IDEs & Editores
+.vscode/
+.idea/
+*.swp

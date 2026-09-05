@@ -1,0 +1,7 @@
+langgraph
+langchain-openai
+langchain-community
+duckduckgo-search
+ddgs
+yfinance
+python-dotenv
