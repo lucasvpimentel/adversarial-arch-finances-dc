@@ -26,9 +26,13 @@ def carregar_prompt(caminho_arquivo: str) -> str:
 def no_replica_bear(estado: EstadoComite) -> dict:
     """
     Nó do LangGraph responsável pela RÉPLICA CÉTICA / CONSERVADORA (Bear).
+    
+    Consome 'dados_mercado', 'dados_estatisticos' e 'argumento_bull'.
+    Retorna APENAS o dicionário com a chave 'replica_bear'.
     """
     ticker = estado.get("ticker", "Ativo")
     dados_mercado = estado.get("dados_mercado", "Sem dados disponíveis.")
+    dados_estatisticos = estado.get("dados_estatisticos", "Sem dados estatísticos.")
     argumento_bull = estado.get("argumento_bull", "Sem argumento Bull inicial.")
 
     # Leitura direta das configurações do .env
@@ -55,9 +59,11 @@ def no_replica_bear(estado: EstadoComite) -> dict:
             f"ATIVO ANALISADO: {ticker}\n\n"
             f"1. DADOS DE MERCADO E NOTÍCIAS:\n"
             f"'''\n{dados_mercado}\n'''\n\n"
-            f"2. TESE INICIAL DO ANALISTA BULL (OTIMISTA):\n"
+            f"2. ANÁLISE ESTATÍSTICA QUANTITATIVA IMPARCIAL:\n"
+            f"'''\n{dados_estatisticos}\n'''\n\n"
+            f"3. TESE INICIAL DO ANALISTA BULL (OTIMISTA):\n"
             f"'''\n{argumento_bull}\n'''\n\n"
-            f"Com base unicamente nos dados de mercado fornecidos, apresente a sua RÉPLICA CÉTICA (Bear), "
+            f"Com base unicamente nos dados fornecidos, apresente a sua RÉPLICA CÉTICA (Bear), "
             f"rebatendo os pontos otimistas do Bull e reafirmando a necessidade de cautela/risco."
         )
     )

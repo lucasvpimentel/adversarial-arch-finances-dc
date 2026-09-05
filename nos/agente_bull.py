@@ -26,9 +26,13 @@ def carregar_prompt(caminho_arquivo: str) -> str:
 def no_agente_bull(estado: EstadoComite) -> dict:
     """
     Nó do LangGraph responsável pela análise OTIMISTA (Bull) do ativo.
+    
+    Consome 'dados_mercado' e 'dados_estatisticos' para construir a tese de compra.
+    Retorna APENAS o dicionário com a chave 'argumento_bull'.
     """
     ticker = estado.get("ticker", "Ativo")
     dados_mercado = estado.get("dados_mercado", "Sem dados disponíveis.")
+    dados_estatisticos = estado.get("dados_estatisticos", "Sem dados estatísticos.")
 
     # Leitura direta das configurações do .env
     modelo_nome = os.getenv("OPENAI_MODEL")
@@ -52,9 +56,11 @@ def no_agente_bull(estado: EstadoComite) -> dict:
     mensagem_usuario = HumanMessage(
         content=(
             f"Ativo analisado: {ticker}\n\n"
-            f"Dados de mercado e notícias coletadas:\n"
+            f"1. DADOS DE MERCADO E NOTÍCIAS:\n"
             f"'''\n{dados_mercado}\n'''\n\n"
-            f"Com base unicamente nessas informações, apresente a sua tese OTIMISTA (Bull) "
+            f"2. ANÁLISE ESTATÍSTICA QUANTITATIVA IMPARCIAL:\n"
+            f"'''\n{dados_estatisticos}\n'''\n\n"
+            f"Com base unicamente nessas informações e dados concretos, apresente a sua tese OTIMISTA (Bull) "
             f"defendendo por que vale a pena COMPRAR este ativo agora."
         )
     )

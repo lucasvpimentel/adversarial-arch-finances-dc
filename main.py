@@ -37,8 +37,8 @@ def exibir_menu_ativos():
 
 def exibir_resultado_comite(resultado: dict):
     """
-    Exibe o debate completo e o veredito final do comitê de investimento
-    formatados em blocos estruturados e com cabeçalhos destacados.
+    Exibe o debate completo, a análise estatística quantitativa e os relatórios dos 3 Juízes
+    (Conservador, Moderado e Agressivo) formatados em blocos estruturados.
     """
     ticker = resultado.get("ticker", "DESCONHECIDO")
     
@@ -50,25 +50,42 @@ def exibir_resultado_comite(resultado: dict):
     print("-" * 80)
     print(resultado.get("dados_mercado", "Sem dados de mercado."))
 
-    print("\n🐂 2. TESE INICIAL DO ANALISTA BULL (OTIMISTA)")
+    print("\n📈 2. ANÁLISE ESTATÍSTICA QUANTITATIVA IMPARCIAL")
+    print("-" * 80)
+    print(resultado.get("dados_estatisticos", "Sem dados estatísticos."))
+
+    print("\n🐂 3. TESE INICIAL DO ANALISTA BULL (OTIMISTA)")
     print("-" * 80)
     print(resultado.get("argumento_bull", "Sem argumento Bull."))
 
-    print("\n🐻 3. TESE INICIAL DO ANALISTA BEAR (CÉTICO/RISCO)")
+    print("\n🐻 4. TESE INICIAL DO ANALISTA BEAR (CÉTICO/RISCO)")
     print("-" * 80)
     print(resultado.get("argumento_bear", "Sem argumento Bear."))
 
-    print("\n🔄 4. RÉPLICA DO ANALISTA BULL (REBATENDO O BEAR)")
+    print("\n🔄 5. RÉPLICA DO ANALISTA BULL (REBATENDO O BEAR)")
     print("-" * 80)
     print(resultado.get("replica_bull", "Sem réplica Bull."))
 
-    print("\n🔄 5. RÉPLICA DO ANALISTA BEAR (REBATENDO O BULL)")
+    print("\n🔄 6. RÉPLICA DO ANALISTA BEAR (REBATENDO O BULL)")
     print("-" * 80)
     print(resultado.get("replica_bear", "Sem réplica Bear."))
 
-    print("\n👨‍⚖️ 6. DECISÃO FINAL E RELATÓRIO DO GESTOR / JUIZ")
+    print("\n" + "=" * 80)
+    print("                     PARECERES DOS 3 JUÍZES POR PERFIL DE RISCO                     ")
     print("=" * 80)
-    print(resultado.get("decisao_final", "Sem decisão final."))
+
+    print("\n🛡️ 7. PARECER DO JUIZ CONSERVADOR (Preservação de Capital & Baixa Volatilidade)")
+    print("-" * 80)
+    print(resultado.get("decisao_conservador", "Sem parecer conservador."))
+
+    print("\n⚖️ 8. PARECER DO JUIZ MODERADO (Equilíbrio Risco vs Retorno)")
+    print("-" * 80)
+    print(resultado.get("decisao_moderado", "Sem parecer moderado."))
+
+    print("\n🚀 9. PARECER DO JUIZ AGRESSIVO (Maximização de Retorno & Tolerância a Risco)")
+    print("-" * 80)
+    print(resultado.get("decisao_agressivo", "Sem parecer agressivo."))
+
     print("=" * 80 + "\n")
 
 
@@ -98,12 +115,12 @@ def executar_pipeline():
 
         ticker_validado = ticker_input.upper()
         print(f"\n🚀 Iniciando análise do Comitê de Investimento para {ticker_validado}...")
-        print("Aguarde: Coletando dados, rodando análises paralelas e processando o debate...\n")
+        print("Aguarde: Coletando dados, calculando estatísticas, rodando análises em paralelo e processando o debate...\n")
 
         # Invocação do pipeline compilado do LangGraph
         resultado_final = pipeline.invoke({"ticker": ticker_validado})
 
-        # Exibição completa do debate e veredito
+        # Exibição completa do debate, estatísticas e 3 decisões
         exibir_resultado_comite(resultado_final)
 
         opcao = input("Deseja analisar outro ativo? (s/n): ").strip().lower()
